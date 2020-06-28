@@ -1,0 +1,903 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		"Cirrus::CirrusPackageTests::ProductTarget" /* CirrusPackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_119 /* Build configuration list for PBXAggregateTarget "CirrusPackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_122 /* PBXTargetDependency */,
+			);
+			name = CirrusPackageTests;
+			productName = CirrusPackageTests;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		OBJ_100 /* SyncEngine+AccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* SyncEngine+AccountStatus.swift */; };
+		OBJ_101 /* SyncEngine+RecordModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* SyncEngine+RecordModification.swift */; };
+		OBJ_102 /* SyncEngine+RemoteChangeTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* SyncEngine+RemoteChangeTracking.swift */; };
+		OBJ_103 /* SyncEngine+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* SyncEngine+Subscription.swift */; };
+		OBJ_104 /* SyncEngine+Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* SyncEngine+Zone.swift */; };
+		OBJ_105 /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* SyncEngine.swift */; };
+		OBJ_106 /* UploadRecordContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* UploadRecordContext.swift */; };
+		OBJ_108 /* CKRecordCoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Cirrus::CKRecordCoder::Product" /* CKRecordCoder.framework */; };
+		OBJ_109 /* CloudKitCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */; };
+		OBJ_117 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_127 /* CloudKitCodable+LastModifiedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* CloudKitCodable+LastModifiedDate.swift */; };
+		OBJ_128 /* CloudKitCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* CloudKitCodable.swift */; };
+		OBJ_59 /* CKRecordDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* CKRecordDecoder.swift */; };
+		OBJ_60 /* CKRecordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* CKRecordEncoder.swift */; };
+		OBJ_61 /* CKRecordEncodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* CKRecordEncodingError.swift */; };
+		OBJ_62 /* CKRecordKeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* CKRecordKeyedDecodingContainer.swift */; };
+		OBJ_63 /* CKRecordKeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* CKRecordKeyedEncodingContainer.swift */; };
+		OBJ_64 /* CKRecordSingleValueDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* CKRecordSingleValueDecoder.swift */; };
+		OBJ_65 /* CKRecordSingleValueEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* CKRecordSingleValueEncoder.swift */; };
+		OBJ_66 /* CloudKitCodable+RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* CloudKitCodable+RecordType.swift */; };
+		OBJ_67 /* CloudKitSystemFieldsKeyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* CloudKitSystemFieldsKeyName.swift */; };
+		OBJ_68 /* URLTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* URLTransformer.swift */; };
+		OBJ_70 /* CloudKitCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */; };
+		OBJ_78 /* CKRecordDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* CKRecordDecoderTests.swift */; };
+		OBJ_79 /* CKRecordEncoderDecoderRoundTripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* CKRecordEncoderDecoderRoundTripTests.swift */; };
+		OBJ_80 /* CKRecordEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* CKRecordEncoderTests.swift */; };
+		OBJ_81 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Bookmark.swift */; };
+		OBJ_82 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Numbers.swift */; };
+		OBJ_83 /* ParentChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ParentChild.swift */; };
+		OBJ_84 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* Person.swift */; };
+		OBJ_85 /* URLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* URLModel.swift */; };
+		OBJ_86 /* UUIDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* UUIDModel.swift */; };
+		OBJ_88 /* CKRecordCoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Cirrus::CKRecordCoder::Product" /* CKRecordCoder.framework */; };
+		OBJ_89 /* CloudKitCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */; };
+		OBJ_97 /* DeleteRecordContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* DeleteRecordContext.swift */; };
+		OBJ_98 /* Error+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Error+CloudKit.swift */; };
+		OBJ_99 /* RecordModifyingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* RecordModifyingContext.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E501325B24A8C3380055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CKRecordCoder";
+			remoteInfo = CKRecordCoder;
+		};
+		E501325C24A8C3380055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CloudKitCodable";
+			remoteInfo = CloudKitCodable;
+		};
+		E501325D24A8C3380055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CloudKitCodable";
+			remoteInfo = CloudKitCodable;
+		};
+		E501325E24A8C3390055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CKRecordCoder";
+			remoteInfo = CKRecordCoder;
+		};
+		E501325F24A8C3390055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CloudKitCodable";
+			remoteInfo = CloudKitCodable;
+		};
+		E501326324A8C3780055FF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "Cirrus::CKRecordCoderTests";
+			remoteInfo = CKRecordCoderTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		"Cirrus::CKRecordCoder::Product" /* CKRecordCoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CKRecordCoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Cirrus::CKRecordCoderTests::Product" /* CKRecordCoderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = CKRecordCoderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Cirrus::Cirrus::Product" /* Cirrus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Cirrus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CloudKitCodable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_10 /* CKRecordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordEncoder.swift; sourceTree = "<group>"; };
+		OBJ_11 /* CKRecordEncodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordEncodingError.swift; sourceTree = "<group>"; };
+		OBJ_12 /* CKRecordKeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordKeyedDecodingContainer.swift; sourceTree = "<group>"; };
+		OBJ_13 /* CKRecordKeyedEncodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordKeyedEncodingContainer.swift; sourceTree = "<group>"; };
+		OBJ_14 /* CKRecordSingleValueDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordSingleValueDecoder.swift; sourceTree = "<group>"; };
+		OBJ_15 /* CKRecordSingleValueEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordSingleValueEncoder.swift; sourceTree = "<group>"; };
+		OBJ_16 /* CloudKitCodable+RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudKitCodable+RecordType.swift"; sourceTree = "<group>"; };
+		OBJ_17 /* CloudKitSystemFieldsKeyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSystemFieldsKeyName.swift; sourceTree = "<group>"; };
+		OBJ_18 /* URLTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTransformer.swift; sourceTree = "<group>"; };
+		OBJ_20 /* DeleteRecordContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecordContext.swift; sourceTree = "<group>"; };
+		OBJ_21 /* Error+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+CloudKit.swift"; sourceTree = "<group>"; };
+		OBJ_22 /* RecordModifyingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyingContext.swift; sourceTree = "<group>"; };
+		OBJ_23 /* SyncEngine+AccountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncEngine+AccountStatus.swift"; sourceTree = "<group>"; };
+		OBJ_24 /* SyncEngine+RecordModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncEngine+RecordModification.swift"; sourceTree = "<group>"; };
+		OBJ_25 /* SyncEngine+RemoteChangeTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncEngine+RemoteChangeTracking.swift"; sourceTree = "<group>"; };
+		OBJ_26 /* SyncEngine+Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncEngine+Subscription.swift"; sourceTree = "<group>"; };
+		OBJ_27 /* SyncEngine+Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncEngine+Zone.swift"; sourceTree = "<group>"; };
+		OBJ_28 /* SyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
+		OBJ_29 /* UploadRecordContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRecordContext.swift; sourceTree = "<group>"; };
+		OBJ_31 /* CloudKitCodable+LastModifiedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudKitCodable+LastModifiedDate.swift"; sourceTree = "<group>"; };
+		OBJ_32 /* CloudKitCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitCodable.swift; sourceTree = "<group>"; };
+		OBJ_35 /* CKRecordDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordDecoderTests.swift; sourceTree = "<group>"; };
+		OBJ_36 /* CKRecordEncoderDecoderRoundTripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordEncoderDecoderRoundTripTests.swift; sourceTree = "<group>"; };
+		OBJ_37 /* CKRecordEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordEncoderTests.swift; sourceTree = "<group>"; };
+		OBJ_39 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		OBJ_40 /* Numbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
+		OBJ_41 /* ParentChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChild.swift; sourceTree = "<group>"; };
+		OBJ_42 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		OBJ_43 /* URLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLModel.swift; sourceTree = "<group>"; };
+		OBJ_44 /* UUIDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDModel.swift; sourceTree = "<group>"; };
+		OBJ_50 /* Example */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Example; sourceTree = SOURCE_ROOT; };
+		OBJ_51 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		OBJ_52 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		OBJ_53 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* CKRecordDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecordDecoder.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_107 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_108 /* CKRecordCoder.framework in Frameworks */,
+				OBJ_109 /* CloudKitCodable.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_129 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_70 /* CloudKitCodable.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_88 /* CKRecordCoder.framework in Frameworks */,
+				OBJ_89 /* CloudKitCodable.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_19 /* Cirrus */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_20 /* DeleteRecordContext.swift */,
+				OBJ_21 /* Error+CloudKit.swift */,
+				OBJ_22 /* RecordModifyingContext.swift */,
+				OBJ_23 /* SyncEngine+AccountStatus.swift */,
+				OBJ_24 /* SyncEngine+RecordModification.swift */,
+				OBJ_25 /* SyncEngine+RemoteChangeTracking.swift */,
+				OBJ_26 /* SyncEngine+Subscription.swift */,
+				OBJ_27 /* SyncEngine+Zone.swift */,
+				OBJ_28 /* SyncEngine.swift */,
+				OBJ_29 /* UploadRecordContext.swift */,
+			);
+			name = Cirrus;
+			path = Sources/Cirrus;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_30 /* CloudKitCodable */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_31 /* CloudKitCodable+LastModifiedDate.swift */,
+				OBJ_32 /* CloudKitCodable.swift */,
+			);
+			name = CloudKitCodable;
+			path = Sources/CloudKitCodable;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_33 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_34 /* CKRecordCoderTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_34 /* CKRecordCoderTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_35 /* CKRecordDecoderTests.swift */,
+				OBJ_36 /* CKRecordEncoderDecoderRoundTripTests.swift */,
+				OBJ_37 /* CKRecordEncoderTests.swift */,
+				OBJ_38 /* Mocks */,
+			);
+			name = CKRecordCoderTests;
+			path = Tests/CKRecordCoderTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_38 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_39 /* Bookmark.swift */,
+				OBJ_40 /* Numbers.swift */,
+				OBJ_41 /* ParentChild.swift */,
+				OBJ_42 /* Person.swift */,
+				OBJ_43 /* URLModel.swift */,
+				OBJ_44 /* UUIDModel.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		OBJ_45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"Cirrus::CKRecordCoderTests::Product" /* CKRecordCoderTests.xctest */,
+				"Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */,
+				"Cirrus::CKRecordCoder::Product" /* CKRecordCoder.framework */,
+				"Cirrus::Cirrus::Product" /* Cirrus.framework */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_5 = {
+			isa = PBXGroup;
+			children = (
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_33 /* Tests */,
+				OBJ_45 /* Products */,
+				OBJ_50 /* Example */,
+				OBJ_51 /* LICENSE */,
+				OBJ_52 /* Makefile */,
+				OBJ_53 /* README.md */,
+			);
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* CKRecordCoder */,
+				OBJ_19 /* Cirrus */,
+				OBJ_30 /* CloudKitCodable */,
+			);
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_8 /* CKRecordCoder */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* CKRecordDecoder.swift */,
+				OBJ_10 /* CKRecordEncoder.swift */,
+				OBJ_11 /* CKRecordEncodingError.swift */,
+				OBJ_12 /* CKRecordKeyedDecodingContainer.swift */,
+				OBJ_13 /* CKRecordKeyedEncodingContainer.swift */,
+				OBJ_14 /* CKRecordSingleValueDecoder.swift */,
+				OBJ_15 /* CKRecordSingleValueEncoder.swift */,
+				OBJ_16 /* CloudKitCodable+RecordType.swift */,
+				OBJ_17 /* CloudKitSystemFieldsKeyName.swift */,
+				OBJ_18 /* URLTransformer.swift */,
+			);
+			name = CKRecordCoder;
+			path = Sources/CKRecordCoder;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		"Cirrus::CKRecordCoder" /* CKRecordCoder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_55 /* Build configuration list for PBXNativeTarget "CKRecordCoder" */;
+			buildPhases = (
+				OBJ_58 /* Sources */,
+				OBJ_69 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_71 /* PBXTargetDependency */,
+			);
+			name = CKRecordCoder;
+			productName = CKRecordCoder;
+			productReference = "Cirrus::CKRecordCoder::Product" /* CKRecordCoder.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Cirrus::CKRecordCoderTests" /* CKRecordCoderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_74 /* Build configuration list for PBXNativeTarget "CKRecordCoderTests" */;
+			buildPhases = (
+				OBJ_77 /* Sources */,
+				OBJ_87 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_90 /* PBXTargetDependency */,
+				OBJ_91 /* PBXTargetDependency */,
+			);
+			name = CKRecordCoderTests;
+			productName = CKRecordCoderTests;
+			productReference = "Cirrus::CKRecordCoderTests::Product" /* CKRecordCoderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		"Cirrus::Cirrus" /* Cirrus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "Cirrus" */;
+			buildPhases = (
+				OBJ_96 /* Sources */,
+				OBJ_107 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_110 /* PBXTargetDependency */,
+				OBJ_111 /* PBXTargetDependency */,
+			);
+			name = Cirrus;
+			productName = Cirrus;
+			productReference = "Cirrus::Cirrus::Product" /* Cirrus.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Cirrus::CloudKitCodable" /* CloudKitCodable */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_123 /* Build configuration list for PBXNativeTarget "CloudKitCodable" */;
+			buildPhases = (
+				OBJ_126 /* Sources */,
+				OBJ_129 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudKitCodable;
+			productName = CloudKitCodable;
+			productReference = "Cirrus::CloudKitCodable::Product" /* CloudKitCodable.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"Cirrus::SwiftPMPackageDescription" /* CirrusPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_113 /* Build configuration list for PBXNativeTarget "CirrusPackageDescription" */;
+			buildPhases = (
+				OBJ_116 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CirrusPackageDescription;
+			productName = CirrusPackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 9999;
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Cirrus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = OBJ_5;
+			productRefGroup = OBJ_45 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				"Cirrus::CKRecordCoder" /* CKRecordCoder */,
+				"Cirrus::CKRecordCoderTests" /* CKRecordCoderTests */,
+				"Cirrus::Cirrus" /* Cirrus */,
+				"Cirrus::SwiftPMPackageDescription" /* CirrusPackageDescription */,
+				"Cirrus::CirrusPackageTests::ProductTarget" /* CirrusPackageTests */,
+				"Cirrus::CloudKitCodable" /* CloudKitCodable */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_116 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_117 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_126 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_127 /* CloudKitCodable+LastModifiedDate.swift in Sources */,
+				OBJ_128 /* CloudKitCodable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_59 /* CKRecordDecoder.swift in Sources */,
+				OBJ_60 /* CKRecordEncoder.swift in Sources */,
+				OBJ_61 /* CKRecordEncodingError.swift in Sources */,
+				OBJ_62 /* CKRecordKeyedDecodingContainer.swift in Sources */,
+				OBJ_63 /* CKRecordKeyedEncodingContainer.swift in Sources */,
+				OBJ_64 /* CKRecordSingleValueDecoder.swift in Sources */,
+				OBJ_65 /* CKRecordSingleValueEncoder.swift in Sources */,
+				OBJ_66 /* CloudKitCodable+RecordType.swift in Sources */,
+				OBJ_67 /* CloudKitSystemFieldsKeyName.swift in Sources */,
+				OBJ_68 /* URLTransformer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_78 /* CKRecordDecoderTests.swift in Sources */,
+				OBJ_79 /* CKRecordEncoderDecoderRoundTripTests.swift in Sources */,
+				OBJ_80 /* CKRecordEncoderTests.swift in Sources */,
+				OBJ_81 /* Bookmark.swift in Sources */,
+				OBJ_82 /* Numbers.swift in Sources */,
+				OBJ_83 /* ParentChild.swift in Sources */,
+				OBJ_84 /* Person.swift in Sources */,
+				OBJ_85 /* URLModel.swift in Sources */,
+				OBJ_86 /* UUIDModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_97 /* DeleteRecordContext.swift in Sources */,
+				OBJ_98 /* Error+CloudKit.swift in Sources */,
+				OBJ_99 /* RecordModifyingContext.swift in Sources */,
+				OBJ_100 /* SyncEngine+AccountStatus.swift in Sources */,
+				OBJ_101 /* SyncEngine+RecordModification.swift in Sources */,
+				OBJ_102 /* SyncEngine+RemoteChangeTracking.swift in Sources */,
+				OBJ_103 /* SyncEngine+Subscription.swift in Sources */,
+				OBJ_104 /* SyncEngine+Zone.swift in Sources */,
+				OBJ_105 /* SyncEngine.swift in Sources */,
+				OBJ_106 /* UploadRecordContext.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CKRecordCoder" /* CKRecordCoder */;
+			targetProxy = E501325B24A8C3380055FF6E /* PBXContainerItemProxy */;
+		};
+		OBJ_111 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CloudKitCodable" /* CloudKitCodable */;
+			targetProxy = E501325D24A8C3380055FF6E /* PBXContainerItemProxy */;
+		};
+		OBJ_122 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CKRecordCoderTests" /* CKRecordCoderTests */;
+			targetProxy = E501326324A8C3780055FF6E /* PBXContainerItemProxy */;
+		};
+		OBJ_71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CloudKitCodable" /* CloudKitCodable */;
+			targetProxy = E501325C24A8C3380055FF6E /* PBXContainerItemProxy */;
+		};
+		OBJ_90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CKRecordCoder" /* CKRecordCoder */;
+			targetProxy = E501325E24A8C3390055FF6E /* PBXContainerItemProxy */;
+		};
+		OBJ_91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "Cirrus::CloudKitCodable" /* CloudKitCodable */;
+			targetProxy = E501325F24A8C3390055FF6E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_114 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1.0";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		OBJ_115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -package-description-version 5.1.0";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		OBJ_120 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		OBJ_121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		OBJ_124 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CloudKitCodable_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = CloudKitCodable;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CloudKitCodable;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		OBJ_125 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CloudKitCodable_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = CloudKitCodable;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CloudKitCodable;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+					"DEBUG=1",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CKRecordCoder_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = CKRecordCoder;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CKRecordCoder;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		OBJ_57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CKRecordCoder_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = CKRecordCoder;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CKRecordCoder;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		OBJ_75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CKRecordCoderTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CKRecordCoderTests;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		OBJ_76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/CKRecordCoderTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = CKRecordCoderTests;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		OBJ_94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/Cirrus_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Cirrus;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = Cirrus;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		OBJ_95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Cirrus.xcodeproj/Cirrus_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Cirrus;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = Cirrus;
+				TVOS_DEPLOYMENT_TARGET = 13.0;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_113 /* Build configuration list for PBXNativeTarget "CirrusPackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_114 /* Debug */,
+				OBJ_115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_119 /* Build configuration list for PBXAggregateTarget "CirrusPackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_120 /* Debug */,
+				OBJ_121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_123 /* Build configuration list for PBXNativeTarget "CloudKitCodable" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_124 /* Debug */,
+				OBJ_125 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_2 /* Build configuration list for PBXProject "Cirrus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_55 /* Build configuration list for PBXNativeTarget "CKRecordCoder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_56 /* Debug */,
+				OBJ_57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_74 /* Build configuration list for PBXNativeTarget "CKRecordCoderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_75 /* Debug */,
+				OBJ_76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_93 /* Build configuration list for PBXNativeTarget "Cirrus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_94 /* Debug */,
+				OBJ_95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
+}
