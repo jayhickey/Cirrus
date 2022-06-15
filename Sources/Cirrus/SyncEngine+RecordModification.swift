@@ -146,14 +146,15 @@ extension SyncEngine {
       if let partialErrors = ckError.userInfo[CKPartialErrorsByItemIDKey] as? [CKRecord.ID: Error] {
         let recordIDsNotSavedOrDeleted = Set(partialErrors.keys)
 
-        let batchRequestFailedRecordIDs = Set(partialErrors.filter({ (_, error) in
-          if let error = error as? CKError,
-            error.code == .batchRequestFailed
-          {
-            return true
-          }
-          return false
-        }).keys)
+        let batchRequestFailedRecordIDs = Set(
+          partialErrors.filter({ (_, error) in
+            if let error = error as? CKError,
+              error.code == .batchRequestFailed
+            {
+              return true
+            }
+            return false
+          }).keys)
 
         let serverRecordChangedErrors = partialErrors.filter({ (_, error) in
           if let error = error as? CKError,
@@ -163,26 +164,29 @@ extension SyncEngine {
           }
           return false
         }).values
-        
-        let unknownItemRecordIDs = Set(partialErrors.filter({ (_, error) in
-          if let error = error as? CKError,
-            error.code == .unknownItem
-          {
-            return true
-          }
-          return false
-        }).keys)
-        
+
+        let unknownItemRecordIDs = Set(
+          partialErrors.filter({ (_, error) in
+            if let error = error as? CKError,
+              error.code == .unknownItem
+            {
+              return true
+            }
+            return false
+          }).keys)
+
         context.failedToUpdateRecords(
           recordsSaved: recordsToSave.filter { unknownItemRecordIDs.contains($0.recordID) },
           recordIDsDeleted: recordIDsToDelete.filter(unknownItemRecordIDs.contains)
         )
-        
-        let recordsToSaveWithoutUnknowns = recordsToSave
+
+        let recordsToSaveWithoutUnknowns =
+          recordsToSave
           .filter { recordIDsNotSavedOrDeleted.contains($0.recordID) }
           .filter { !unknownItemRecordIDs.contains($0.recordID) }
-        
-        let recordIDsToDeleteWithoutUnknowns = recordIDsToDelete
+
+        let recordIDsToDeleteWithoutUnknowns =
+          recordIDsToDelete
           .filter(recordIDsNotSavedOrDeleted.contains)
           .filter { !unknownItemRecordIDs.contains($0) }
 
@@ -192,9 +196,10 @@ extension SyncEngine {
 
         let conflictsToSaveSet = Set(resolvedConflictsToSave.map(\.recordID))
         let batchRequestFailureRecordsToSave = recordsToSaveWithoutUnknowns.filter {
-          !conflictsToSaveSet.contains($0.recordID) && batchRequestFailedRecordIDs.contains($0.recordID)
+          !conflictsToSaveSet.contains($0.recordID)
+            && batchRequestFailedRecordIDs.contains($0.recordID)
         }
-        
+
         modifyRecords(
           toSave: batchRequestFailureRecordsToSave + resolvedConflictsToSave,
           recordIDsToDelete: recordIDsToDeleteWithoutUnknowns,

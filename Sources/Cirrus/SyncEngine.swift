@@ -98,7 +98,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
       self.container = CKContainer.default()
     }
 
-    // Add items that haven't been uploaded yet. 
+    // Add items that haven't been uploaded yet.
     self.uploadContext.buffer(initialItems.filter { $0.cloudKitSystemFields == nil })
 
     observeAccountStatus()
