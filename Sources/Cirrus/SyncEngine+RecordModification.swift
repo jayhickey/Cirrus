@@ -144,16 +144,16 @@ extension SyncEngine {
 
     case _ where ckError.code == .partialFailure:
       if let partialErrors = ckError.userInfo[CKPartialErrorsByItemIDKey] as? [CKRecord.ID: Error] {
-        let recordIDsNotSavedOrDeleted = partialErrors.keys
+        let recordIDsNotSavedOrDeleted = Set(partialErrors.keys)
 
-        let batchRequestFailedRecordIDs = partialErrors.filter({ (_, error) in
+        let batchRequestFailedRecordIDs = Set(partialErrors.filter({ (_, error) in
           if let error = error as? CKError,
             error.code == .batchRequestFailed
           {
             return true
           }
           return false
-        }).keys
+        }).keys)
 
         let serverRecordChangedErrors = partialErrors.filter({ (_, error) in
           if let error = error as? CKError,
@@ -163,20 +163,41 @@ extension SyncEngine {
           }
           return false
         }).values
+        
+        let unknownItemRecordIDs = Set(partialErrors.filter({ (_, error) in
+          if let error = error as? CKError,
+            error.code == .unknownItem
+          {
+            return true
+          }
+          return false
+        }).keys)
+        
+        context.failedToUpdateRecords(
+          recordsSaved: recordsToSave.filter { unknownItemRecordIDs.contains($0.recordID) },
+          recordIDsDeleted: recordIDsToDelete.filter(unknownItemRecordIDs.contains)
+        )
+        
+        let recordsToSaveWithoutUnknowns = recordsToSave
+          .filter { recordIDsNotSavedOrDeleted.contains($0.recordID) }
+          .filter { !unknownItemRecordIDs.contains($0.recordID) }
+        
+        let recordIDsToDeleteWithoutUnknowns = recordIDsToDelete
+          .filter(recordIDsNotSavedOrDeleted.contains)
+          .filter { !unknownItemRecordIDs.contains($0) }
 
         let resolvedConflictsToSave =
           serverRecordChangedErrors
           .compactMap { $0.resolveConflict(log, with: Model.resolveConflict) }
 
-        let batchRequestRecordsToSave = recordsToSave.filter {
-          !resolvedConflictsToSave.map { $0.recordID }.contains($0.recordID)
-            && batchRequestFailedRecordIDs.contains($0.recordID)
+        let conflictsToSaveSet = Set(resolvedConflictsToSave.map(\.recordID))
+        let batchRequestFailureRecordsToSave = recordsToSaveWithoutUnknowns.filter {
+          !conflictsToSaveSet.contains($0.recordID) && batchRequestFailedRecordIDs.contains($0.recordID)
         }
-        let failedRecordIDsToDelete = recordIDsToDelete.filter(recordIDsNotSavedOrDeleted.contains)
-
+        
         modifyRecords(
-          toSave: batchRequestRecordsToSave + resolvedConflictsToSave,
-          recordIDsToDelete: failedRecordIDsToDelete,
+          toSave: batchRequestFailureRecordsToSave + resolvedConflictsToSave,
+          recordIDsToDelete: recordIDsToDeleteWithoutUnknowns,
           context: context
         )
       }
