@@ -26,16 +26,14 @@ extension SyncEngine {
 
   private func createCustomZoneIfNeeded() {
     guard !createdCustomZone else {
-      os_log(
-        "Already have custom zone, skipping creation but checking if zone really exists", log: log,
-        type: .debug)
+      logHandler("Already have custom zone, skipping creation but checking if zone really exists", .debug)
 
       checkCustomZone()
 
       return
     }
 
-    os_log("Creating CloudKit zone %@", log: log, type: .info, zoneIdentifier.zoneName)
+    logHandler("Creating CloudKit zone \(zoneIdentifier.zoneName)", .info)
 
     let zone = CKRecordZone(zoneID: zoneIdentifier)
     let operation = CKModifyRecordZonesOperation(
@@ -47,17 +45,13 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to create custom CloudKit zone: %{public}@",
-          log: self.log,
-          type: .error,
-          String(describing: error))
+        self.logHandler("Failed to create custom CloudKit zone: \(String(describing: error))", .error)
 
-        error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+        error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.createCustomZoneIfNeeded()
         }
       } else {
-        os_log("Zone created successfully", log: self.log, type: .info)
+        self.logHandler("Zone created successfully", .info)
         self.createdCustomZone = true
       }
     }
@@ -75,16 +69,13 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to check for custom zone existence: %{public}@", log: self.log, type: .error,
-          String(describing: error))
+        self.logHandler(
+          "Failed to check for custom zone existence: \(String(describing: error))", .error)
 
         if !error.retryCloudKitOperationIfPossible(
-          self.log, queue: self.workQueue, with: { self.checkCustomZone() })
+          self.logHandler, queue: self.workQueue, with: { self.checkCustomZone() })
         {
-          os_log(
-            "Irrecoverable error when fetching custom zone, assuming it doesn't exist: %{public}@",
-            log: self.log, type: .error, String(describing: error))
+          self.logHandler( "Irrecoverable error when fetching custom zone, assuming it doesn't exist: \(String(describing: error))", .error)
 
           self.workQueue.async {
             self.createdCustomZone = false
@@ -92,9 +83,7 @@ extension SyncEngine {
           }
         }
       } else if ids?.isEmpty ?? true {
-        os_log(
-          "Custom zone reported as existing, but it doesn't exist. Creating.", log: self.log,
-          type: .error)
+        self.logHandler("Custom zone reported as existing, but it doesn't exist. Creating.", .error)
         self.workQueue.async {
           self.createdCustomZone = false
           self.createCustomZoneIfNeeded()

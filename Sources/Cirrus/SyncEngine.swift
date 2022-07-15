@@ -30,11 +30,6 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
   // MARK: - Internal Properties
 
-  lazy var log = OSLog(
-    subsystem: "com.jayhickey.Cirrus.\(zoneIdentifier.zoneName)",
-    category: String(describing: SyncEngine.self)
-  )
-
   lazy var privateSubscriptionIdentifier = "\(zoneIdentifier.zoneName).subscription"
   lazy var privateChangeTokenKey = "TOKEN-\(zoneIdentifier.zoneName)"
   lazy var createdPrivateSubscriptionKey = "CREATEDSUBDB-\(zoneIdentifier.zoneName))"
@@ -54,6 +49,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
   let zoneIdentifier: CKRecordZone.ID
 
   let container: CKContainer
+  let logHandler: (String, OSLogType) -> Void
 
   lazy var privateDatabase: CKDatabase = container.privateCloudDatabase
 
@@ -61,9 +57,9 @@ public final class SyncEngine<Model: CloudKitCodable> {
   let modelsChangedSubject = PassthroughSubject<ModelChange, Never>()
 
   private lazy var uploadContext: UploadRecordContext<Model> = UploadRecordContext(
-    defaults: defaults, zoneID: zoneIdentifier, log: log)
+    defaults: defaults, zoneID: zoneIdentifier, logHandler: logHandler)
   private lazy var deleteContext: DeleteRecordContext<Model> = DeleteRecordContext(
-    defaults: defaults, zoneID: zoneIdentifier, log: log)
+    defaults: defaults, zoneID: zoneIdentifier, logHandler: logHandler)
 
   lazy var cloudOperationQueue: OperationQueue = {
     let queue = OperationQueue()
@@ -84,18 +80,28 @@ public final class SyncEngine<Model: CloudKitCodable> {
   public init(
     defaults: UserDefaults = .standard,
     containerIdentifier: String? = nil,
-    initialItems: [Model] = []
+    initialItems: [Model] = [],
+    logHandler: ((String, OSLogType) -> Void)? = nil
   ) {
     self.defaults = defaults
     self.recordType = String(describing: Model.self)
-    self.zoneIdentifier = CKRecordZone.ID(
+    let zoneIdent = CKRecordZone.ID(
       zoneName: self.recordType,
       ownerName: CKCurrentUserDefaultName
     )
+    self.zoneIdentifier = zoneIdent
     if let containerIdentifier = containerIdentifier {
       self.container = CKContainer(identifier: containerIdentifier)
     } else {
       self.container = CKContainer.default()
+    }
+    
+    self.logHandler = logHandler ?? { string, level in
+      let logger = Logger.init(
+        subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
+        category: String(describing: SyncEngine.self)
+      )
+      logger.log(level: level, "\(string)")
     }
 
     // Add items that haven't been uploaded yet.
@@ -114,7 +120,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
   /// Upload an array of models to CloudKit.
   public func upload(_ models: [Model]) {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler(#function, .debug)
 
     workQueue.async {
       self.uploadContext.buffer(models)
@@ -129,7 +135,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
   /// Delete an array of models from CloudKit.
   public func delete(_ models: [Model]) {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler(#function, .debug)
 
     workQueue.async {
       // Remove any pending upload items that match the items we want to delete
@@ -150,7 +156,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
   /// 2. Deletes any models that were passed to `delete(_:)` and were unable to be deleted from CloudKit.
   /// 3. Fetches any new model changes from CloudKit.
   public func forceSync() {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler(#function, .debug)
 
     workQueue.async {
       self.performUpdate(with: self.uploadContext)
@@ -170,19 +176,19 @@ public final class SyncEngine<Model: CloudKitCodable> {
   @discardableResult public func processRemoteChangeNotification(with userInfo: [AnyHashable: Any])
     -> Bool
   {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler(#function, .debug)
 
     guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else {
-      os_log("Not a CKNotification", log: self.log, type: .error)
+      logHandler("Not a CKNotification", .error)
       return false
     }
 
     guard notification.subscriptionID == privateSubscriptionIdentifier else {
-      os_log("Not our subscription ID", log: self.log, type: .debug)
+      logHandler("Not our subscription ID", .error)
       return false
     }
 
-    os_log("Received remote CloudKit notification for user data", log: log, type: .debug)
+    logHandler("Received remote CloudKit notification for user data", .debug)
 
     self.workQueue.async { [weak self] in
       self?.fetchRemoteChanges()
@@ -199,19 +205,16 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
       // Initialize CloudKit with private custom zone, but bail early if we fail
       guard self.initializeZone(with: self.cloudOperationQueue) else {
-        os_log("Unable to initialize zone, bailing from setup early", log: self.log, type: .error)
+        self.logHandler("Unable to initialize zone, bailing from setup early", .error)
         return
       }
 
       // Subscribe to CloudKit changes, but bail early if we fail
       guard self.initializeSubscription(with: self.cloudOperationQueue) else {
-        os_log(
-          "Unable to initialize subscription to changes, bailing from setup early", log: self.log,
-          type: .error)
+        self.logHandler("Unable to initialize subscription to changes, bailing from setup early", .error)
         return
       }
-
-      os_log("Cloud environment preparation done", log: self.log, type: .debug)
+      self.logHandler("Cloud environment preparation done", .debug)
 
       self.performUpdate(with: self.uploadContext)
       self.performUpdate(with: self.deleteContext)

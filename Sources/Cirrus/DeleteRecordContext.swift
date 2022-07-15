@@ -8,14 +8,14 @@ final class DeleteRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
 
   private let defaults: UserDefaults
   private let zoneID: CKRecordZone.ID
-  private let log: OSLog
+  private let logHandler: (String, OSLogType) -> Void
 
   private lazy var deleteBufferKey = "DELETEBUFFER-\(zoneID.zoneName))"
 
-  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, log: OSLog) {
+  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, logHandler: @escaping (String, OSLogType) -> Void) {
     self.defaults = defaults
     self.zoneID = zoneID
-    self.log = log
+    self.logHandler = logHandler
   }
 
   func buffer(_ values: [Persistable]) {
@@ -23,9 +23,7 @@ final class DeleteRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
     do {
       recordIDs = try values.map { try CKRecordEncoder(zoneID: zoneID).encode($0).recordID }
     } catch let error {
-      os_log(
-        "Failed to encode records for delete:  %{public}@", log: log, type: .error,
-        String(describing: error))
+      logHandler("Failed to encode records for delete: \(String(describing: error))", .error)
       recordIDs = values.compactMap { try? CKRecordEncoder(zoneID: zoneID).encode($0).recordID }
     }
     recordIDsToDelete.append(contentsOf: recordIDs)
@@ -44,22 +42,18 @@ final class DeleteRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
       do {
         return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [CKRecord.ID] ?? []
       } catch {
-        os_log(
-          "Failed to decode CKRecord.IDs from defaults key deleteBufferKey", log: log, type: .error)
+        logHandler("Failed to decode CKRecord.IDs from defaults key deleteBufferKey", .error)
         return []
       }
     }
     set {
       do {
-        os_log(
-          "Updating %{public}@ buffer with %d items", log: log, type: .info, name, newValue.count)
+        logHandler("Updating \(newValue.count) buffer with %d items", .info)
         let data = try NSKeyedArchiver.archivedData(
           withRootObject: newValue, requiringSecureCoding: true)
         defaults.set(data, forKey: deleteBufferKey)
       } catch {
-        os_log(
-          "Failed to encode record ids for deletion: %{public}@", log: log, type: .error,
-          String(describing: error))
+        logHandler("Failed to encode record ids for deletion: \(String(describing: error))", .error)
       }
     }
   }

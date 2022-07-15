@@ -27,12 +27,11 @@ extension SyncEngine {
   // MARK: - Private
 
   private func updateAccountStatus() {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler(#function, .debug)
     container.accountStatus { [weak self] status, error in
       if let error = error {
-        os_log(
-          "Error retriving iCloud account status: %{PUBLIC}@", type: .error,
-          error.localizedDescription)
+        self?.logHandler(
+          "Error retriving iCloud account status: \(error.localizedDescription)", .error)
       }
 
       DispatchQueue.main.async {

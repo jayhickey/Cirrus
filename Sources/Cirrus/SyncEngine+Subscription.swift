@@ -26,9 +26,7 @@ extension SyncEngine {
 
   private func createPrivateSubscriptionsIfNeeded() {
     guard !createdPrivateSubscription else {
-      os_log(
-        "Already subscribed to private database changes, skipping subscription but checking if it really exists",
-        log: log, type: .debug)
+      logHandler("Already subscribed to private database changes, skipping subscription but checking if it really exists", .debug)
 
       checkSubscription()
 
@@ -54,17 +52,13 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to create private CloudKit subscription: %{public}@",
-          log: self.log,
-          type: .error,
-          String(describing: error))
+        self.logHandler("Failed to create private CloudKit subscription: \(String(describing: error))", .error)
 
-        error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+        error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.createPrivateSubscriptionsIfNeeded()
         }
       } else {
-        os_log("Private subscription created successfully", log: self.log, type: .info)
+        self.logHandler("Private subscription created successfully", .info)
         self.createdPrivateSubscription = true
       }
     }
@@ -79,16 +73,14 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to check for private zone subscription existence: %{public}@", log: self.log,
-          type: .error, String(describing: error))
+        self.logHandler(
+          "Failed to check for private zone subscription existence: \(String(describing: error))", .error)
 
         if !error.retryCloudKitOperationIfPossible(
-          self.log, queue: self.workQueue, with: { self.checkSubscription() })
+          self.logHandler, queue: self.workQueue, with: { self.checkSubscription() })
         {
-          os_log(
-            "Irrecoverable error when fetching private zone subscription, assuming it doesn't exist: %{public}@",
-            log: self.log, type: .error, String(describing: error))
+          self.logHandler(
+            "Irrecoverable error when fetching private zone subscription, assuming it doesn't exist: \(String(describing: error))", .error)
 
           self.workQueue.async {
             self.createdPrivateSubscription = false
@@ -96,9 +88,8 @@ extension SyncEngine {
           }
         }
       } else if ids?.isEmpty ?? true {
-        os_log(
-          "Private subscription reported as existing, but it doesn't exist. Creating.",
-          log: self.log, type: .error
+        self.logHandler(
+          "Private subscription reported as existing, but it doesn't exist. Creating.", .error
         )
 
         self.workQueue.async {
@@ -106,9 +97,8 @@ extension SyncEngine {
           self.createPrivateSubscriptionsIfNeeded()
         }
       } else {
-        os_log(
-          "Private subscription found, the device is subscribed to CloudKit change notifications.",
-          log: self.log, type: .error
+        self.logHandler(
+          "Private subscription found, the device is subscribed to CloudKit change notifications.", .error
         )
       }
     }

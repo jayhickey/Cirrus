@@ -9,7 +9,7 @@ extension SyncEngine {
   // MARK: - Internal
 
   func fetchRemoteChanges() {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    logHandler("\(#function)", .debug)
 
     var changedRecords: [CKRecord] = []
     var deletedRecordIDs: [CKRecord.ID] = []
@@ -39,7 +39,7 @@ extension SyncEngine {
       // emit the current records, and then clear the arrays so we can re-request for the
       // rest of the data.
       self.workQueue.async {
-        os_log("Commiting new change token and emitting changes", log: self.log, type: .debug)
+        self.logHandler("Commiting new change token and emitting changes", .debug)
 
         self.privateChangeToken = changeToken
         self.emitServerChanges(with: changedRecords, deletedRecordIDs: deletedRecordIDs)
@@ -53,27 +53,24 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error as? CKError {
-        os_log(
-          "Failed to fetch record zone changes: %{public}@",
-          log: self.log,
-          type: .error,
-          String(describing: error))
+        self.logHandler(
+          "Failed to fetch record zone changes: \(String(describing: error))", .error)
 
         if error.code == .changeTokenExpired {
-          os_log(
-            "Change token expired, resetting token and trying again", log: self.log, type: .error)
+          self.logHandler(
+            "Change token expired, resetting token and trying again", .error)
 
           self.workQueue.async {
             self.privateChangeToken = nil
             self.fetchRemoteChanges()
           }
         } else {
-          error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+          error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
             self.fetchRemoteChanges()
           }
         }
       } else {
-        os_log("Commiting new change token", log: self.log, type: .debug)
+        self.logHandler("Commiting new change token", .debug)
 
         self.workQueue.async {
           self.privateChangeToken = token
@@ -100,17 +97,14 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to fetch record zone changes: %{public}@",
-          log: self.log,
-          type: .error,
-          String(describing: error))
+        self.logHandler(
+          "Failed to fetch record zone changes: \(String(describing: error))", .error)
 
-        error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+        error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.fetchRemoteChanges()
         }
       } else {
-        os_log("Finished fetching record zone changes", log: self.log, type: .info)
+        self.logHandler("Finished fetching record zone changes", .info)
 
         self.workQueue.async {
           self.emitServerChanges(with: changedRecords, deletedRecordIDs: deletedRecordIDs)
@@ -139,9 +133,8 @@ extension SyncEngine {
 
         return token
       } catch {
-        os_log(
-          "Failed to decode CKServerChangeToken from defaults key privateChangeToken", log: log,
-          type: .error)
+        logHandler(
+          "Failed to decode CKServerChangeToken from defaults key privateChangeToken", .error)
         return nil
       }
     }
@@ -157,22 +150,20 @@ extension SyncEngine {
 
         defaults.set(data, forKey: privateChangeTokenKey)
       } catch {
-        os_log(
-          "Failed to encode private change token: %{public}@", log: self.log, type: .error,
-          String(describing: error))
+        logHandler(
+          "Failed to encode private change token: \(String(describing: error))", .error)
       }
     }
   }
 
   private func emitServerChanges(with changedRecords: [CKRecord], deletedRecordIDs: [CKRecord.ID]) {
     guard !changedRecords.isEmpty || !deletedRecordIDs.isEmpty else {
-      os_log("Finished record zone changes fetch with no changes", log: log, type: .info)
+      logHandler("Finished record zone changes fetch with no changes", .info)
       return
     }
 
-    os_log(
-      "Will emit %d changed record(s) and %d deleted record(s)", log: log, type: .info,
-      changedRecords.count, deletedRecordIDs.count)
+    logHandler(
+      "Will emit \(changedRecords.count) changed record(s) and \(deletedRecordIDs.count) deleted record(s)", .info)
 
     let models: Set<Model> = Set(
       changedRecords.compactMap { record in
@@ -180,9 +171,8 @@ extension SyncEngine {
           let decoder = CKRecordDecoder()
           return try decoder.decode(Model.self, from: record)
         } catch {
-          os_log(
-            "Error decoding item from record: %{public}@", log: self.log, type: .error,
-            String(describing: error))
+          logHandler(
+            "Error decoding item from record: \(String(describing: error))", .error)
           return nil
         }
       })

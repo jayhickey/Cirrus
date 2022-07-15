@@ -8,14 +8,14 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
 
   private let defaults: UserDefaults
   private let zoneID: CKRecordZone.ID
-  private let log: OSLog
+  private let logHandler: (String, OSLogType) -> Void
 
   private lazy var uploadBufferKey = "UPLOADBUFFER-\(zoneID.zoneName))"
 
-  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, log: OSLog) {
+  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, logHandler: @escaping (String, OSLogType) -> Void) {
     self.defaults = defaults
     self.zoneID = zoneID
-    self.log = log
+    self.logHandler = logHandler
   }
 
   func buffer(_ values: [Persistable]) {
@@ -23,9 +23,7 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
     do {
       records = try values.map { try CKRecordEncoder(zoneID: zoneID).encode($0) }
     } catch let error {
-      os_log(
-        "Failed to encode records for upload:  %{public}@", log: log, type: .error,
-        String(describing: error))
+      logHandler("Failed to encode records for upload: \(String(describing: error))", .error)
       records = values.compactMap { try? CKRecordEncoder(zoneID: zoneID).encode($0) }
     }
     records.forEach { recordsToSave[$0.recordID] = $0 }
@@ -48,22 +46,18 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
         return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
           as? [CKRecord.ID: CKRecord] ?? [:]
       } catch {
-        os_log(
-          "Failed to decode CKRecord.IDs from defaults key uploadBufferKey", log: log, type: .error)
+        logHandler("Failed to decode CKRecord.IDs from defaults key uploadBufferKey", .error)
         return [:]
       }
     }
     set {
       do {
-        os_log(
-          "Updating %{public}@ buffer with %d items", log: log, type: .info, name, newValue.count)
+        logHandler("Updating \(self.name) buffer with \(newValue.count) items", .info)
         let data = try NSKeyedArchiver.archivedData(
           withRootObject: newValue, requiringSecureCoding: true)
         defaults.set(data, forKey: uploadBufferKey)
       } catch {
-        os_log(
-          "Failed to encode record ids for upload: %{public}@", log: log, type: .error,
-          String(describing: error))
+          logHandler("Failed to encode record ids for upload: \(String(describing: error))", .error)
       }
     }
   }
@@ -79,9 +73,7 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
           let decoder = CKRecordDecoder()
           return try decoder.decode(T.self, from: record)
         } catch {
-          os_log(
-            "Error decoding item from record: %{public}@", log: log, type: .error,
-            String(describing: error))
+          logHandler("Error decoding item from record: \(String(describing: error))", .error)
           return nil
         }
       })

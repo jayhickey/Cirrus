@@ -7,14 +7,13 @@ extension SyncEngine {
   // MARK: - Internal
 
   func performUpdate(with context: RecordModifyingContext) {
-    os_log("%{public}@", log: log, type: .debug, #function)
+    self.logHandler("\(#function)", .debug)
 
     guard !context.recordIDsToDelete.isEmpty || !context.recordsToSave.isEmpty else { return }
 
-    os_log(
-      "Using %{public}@ context, found %d local items(s) for upload and %d for deletion.",
-      log: self.log, type: .debug, context.name, context.recordsToSave.count,
-      context.recordIDsToDelete.count)
+    self.logHandler(
+      "Using \(context.name) context, found %d local items(s) for upload and \(context.recordsToSave.count) for deletion.", .debug
+    )
 
     modifyRecords(with: context)
   }
@@ -34,9 +33,7 @@ extension SyncEngine {
   ) {
     guard !recordIDsToDelete.isEmpty || !recordsToSave.isEmpty else { return }
 
-    os_log(
-      "%{public}@ with %d record(s) for upload and %d record(s) for deletion.", log: log,
-      type: .debug, #function, recordsToSave.count, recordIDsToDelete.count)
+    logHandler("Sending \(recordsToSave.count) record(s) for upload and \(recordIDsToDelete.count) record(s) for deletion.", .debug)
 
     let operation = CKModifyRecordsOperation(
       recordsToSave: recordsToSave, recordIDsToDelete: recordIDsToDelete)
@@ -45,9 +42,7 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        os_log(
-          "Failed to %{public}@ records: %{public}@", log: self.log, type: .error, context.name,
-          String(describing: error))
+        self.logHandler("Failed to \(context.name) records: \(String(describing: error))", .error)
 
         self.workQueue.async {
           self.handleError(
@@ -58,9 +53,7 @@ extension SyncEngine {
           )
         }
       } else {
-        os_log(
-          "Successfully %{public}@ record(s). Saved %d and deleted %d", log: self.log, type: .info,
-          context.name, recordsToSave.count, recordIDsToDelete.count)
+        self.logHandler("Successfully \(context.name) record(s). Saved \(recordsToSave.count) and deleted \(recordIDsToDelete.count)", .info)
 
         self.workQueue.async {
           self.modelsChangedSubject.send(
@@ -89,22 +82,19 @@ extension SyncEngine {
     context: RecordModifyingContextProvider
   ) {
     guard let ckError = error as? CKError else {
-      os_log(
-        "Error was not a CKError, giving up: %{public}@", log: self.log, type: .fault,
-        String(describing: error))
+      logHandler(
+        "Error was not a CKError, giving up: \(String(describing: error))", .fault)
       return
     }
 
     switch ckError {
 
     case _ where ckError.isCloudKitZoneDeleted:
-      os_log(
-        "Zone was deleted, recreating zone: %{public}@", log: self.log, type: .error,
-        String(describing: error))
+      logHandler(
+        "Zone was deleted, recreating zone: \(String(describing: error))", .error)
       guard initializeZone(with: self.cloudOperationQueue) else {
-        os_log(
-          "Unable to create zone, error is not recoverable", log: self.log, type: .fault,
-          String(describing: error))
+        logHandler(
+          "Unable to create zone, error is not recoverable: \(String(describing: error))", .fault)
         return
       }
       self.modifyRecords(
@@ -114,9 +104,8 @@ extension SyncEngine {
       )
 
     case _ where ckError.code == CKError.Code.limitExceeded:
-      os_log(
-        "CloudKit batch limit exceeded, trying to %{public}@ records in chunks", log: self.log,
-        type: .error, context.name)
+      logHandler(
+        "CloudKit batch limit exceeded, trying to \(context.name) records in chunks", .error)
 
       let firstHalfSave = Array(recordsToSave[0..<recordsToSave.count / 2])
       let secondHalfSave = Array(recordsToSave[recordsToSave.count / 2..<recordsToSave.count])
@@ -127,7 +116,7 @@ extension SyncEngine {
 
       let results = [(firstHalfSave, firstHalfDelete), (secondHalfSave, secondHalfDelete)].map {
         (save: [CKRecord], delete: [CKRecord.ID]) in
-        error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+        error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.modifyRecords(
             toSave: save,
             recordIDsToDelete: delete,
@@ -137,9 +126,8 @@ extension SyncEngine {
       }
 
       if !results.allSatisfy({ $0 == true }) {
-        os_log(
-          "Error is not recoverable: %{public}@", log: self.log, type: .error,
-          String(describing: error))
+        logHandler(
+          "Error is not recoverable: \(String(describing: error))", .error)
       }
 
     case _ where ckError.code == .partialFailure:
@@ -192,7 +180,7 @@ extension SyncEngine {
 
         let resolvedConflictsToSave =
           serverRecordChangedErrors
-          .compactMap { $0.resolveConflict(log, with: Model.resolveConflict) }
+          .compactMap { $0.resolveConflict(logHandler, with: Model.resolveConflict) }
 
         let conflictsToSaveSet = Set(resolvedConflictsToSave.map(\.recordID))
         let batchRequestFailureRecordsToSave = recordsToSaveWithoutUnknowns.filter {
@@ -208,18 +196,16 @@ extension SyncEngine {
       }
 
     case _ where ckError.code == .serverRecordChanged:
-      if let resolvedRecord = error.resolveConflict(log, with: Model.resolveConflict) {
-        os_log("Conflict resolved, will retry upload", log: self.log, type: .info)
+      if let resolvedRecord = error.resolveConflict(logHandler, with: Model.resolveConflict) {
+        logHandler("Conflict resolved, will retry upload", .info)
         self.modifyRecords(
           toSave: [resolvedRecord],
           recordIDsToDelete: [],
           context: context
         )
       } else {
-        os_log(
-          "Resolving conflict returned a nil record. Giving up.",
-          log: self.log,
-          type: .error
+        logHandler(
+          "Resolving conflict returned a nil record. Giving up.", .error
         )
       }
 
@@ -228,16 +214,15 @@ extension SyncEngine {
       || ckError.code == .networkUnavailable
       || ckError.code == .networkFailure
       || ckError.code == .serverResponseLost:
-      os_log(
-        "Unable to connect to iCloud servers: %{public}@", log: self.log, type: .info,
-        String(describing: error))
+      logHandler(
+        "Unable to connect to iCloud servers: \(String(describing: error))", .info)
 
     case _ where ckError.code == .unknownItem:
-      os_log(
-        "Unknown item, ignoring: %{public}@", log: self.log, type: .info, String(describing: error))
+      logHandler(
+        "Unknown item, ignoring: \(String(describing: error))", .info)
 
     default:
-      let result = error.retryCloudKitOperationIfPossible(self.log, queue: self.workQueue) {
+      let result = error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
         self.modifyRecords(
           toSave: recordsToSave,
           recordIDsToDelete: recordIDsToDelete,
@@ -246,9 +231,8 @@ extension SyncEngine {
       }
 
       if !result {
-        os_log(
-          "Error is not recoverable: %{public}@", log: self.log, type: .error,
-          String(describing: error))
+        logHandler(
+          "Error is not recoverable: \( String(describing: error))", .error)
         context.failedToUpdateRecords(
           recordsSaved: recordsToSave, recordIDsDeleted: recordIDsToDelete)
       }
