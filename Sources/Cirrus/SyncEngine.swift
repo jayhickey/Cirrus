@@ -98,11 +98,13 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
     self.logHandler =
       logHandler ?? { string, level in
-        let logger = Logger.init(
-          subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
-          category: String(describing: SyncEngine.self)
-        )
-        logger.log(level: level, "\(string)")
+        if #available(iOS 14.0, macOS 11.0, *) {
+          let logger = Logger.init(
+            subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
+            category: String(describing: SyncEngine.self)
+          )
+          logger.log(level: level, "\(string)")
+        }
       }
 
     // Add items that haven't been uploaded yet.
