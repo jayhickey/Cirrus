@@ -26,7 +26,9 @@ extension SyncEngine {
 
   private func createPrivateSubscriptionsIfNeeded() {
     guard !createdPrivateSubscription else {
-      logHandler("Already subscribed to private database changes, skipping subscription but checking if it really exists", .debug)
+      logHandler(
+        "Already subscribed to private database changes, skipping subscription but checking if it really exists",
+        .debug)
 
       checkSubscription()
 
@@ -52,7 +54,8 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        self.logHandler("Failed to create private CloudKit subscription: \(String(describing: error))", .error)
+        self.logHandler(
+          "Failed to create private CloudKit subscription: \(String(describing: error))", .error)
 
         error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.createPrivateSubscriptionsIfNeeded()
@@ -74,13 +77,15 @@ extension SyncEngine {
 
       if let error = error {
         self.logHandler(
-          "Failed to check for private zone subscription existence: \(String(describing: error))", .error)
+          "Failed to check for private zone subscription existence: \(String(describing: error))",
+          .error)
 
         if !error.retryCloudKitOperationIfPossible(
           self.logHandler, queue: self.workQueue, with: { self.checkSubscription() })
         {
           self.logHandler(
-            "Irrecoverable error when fetching private zone subscription, assuming it doesn't exist: \(String(describing: error))", .error)
+            "Irrecoverable error when fetching private zone subscription, assuming it doesn't exist: \(String(describing: error))",
+            .error)
 
           self.workQueue.async {
             self.createdPrivateSubscription = false
@@ -98,7 +103,8 @@ extension SyncEngine {
         }
       } else {
         self.logHandler(
-          "Private subscription found, the device is subscribed to CloudKit change notifications.", .error
+          "Private subscription found, the device is subscribed to CloudKit change notifications.",
+          .error
         )
       }
     }

@@ -12,7 +12,10 @@ final class DeleteRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
 
   private lazy var deleteBufferKey = "DELETEBUFFER-\(zoneID.zoneName))"
 
-  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, logHandler: @escaping (String, OSLogType) -> Void) {
+  init(
+    defaults: UserDefaults, zoneID: CKRecordZone.ID,
+    logHandler: @escaping (String, OSLogType) -> Void
+  ) {
     self.defaults = defaults
     self.zoneID = zoneID
     self.logHandler = logHandler

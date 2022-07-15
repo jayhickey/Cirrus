@@ -95,14 +95,15 @@ public final class SyncEngine<Model: CloudKitCodable> {
     } else {
       self.container = CKContainer.default()
     }
-    
-    self.logHandler = logHandler ?? { string, level in
-      let logger = Logger.init(
-        subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
-        category: String(describing: SyncEngine.self)
-      )
-      logger.log(level: level, "\(string)")
-    }
+
+    self.logHandler =
+      logHandler ?? { string, level in
+        let logger = Logger.init(
+          subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
+          category: String(describing: SyncEngine.self)
+        )
+        logger.log(level: level, "\(string)")
+      }
 
     // Add items that haven't been uploaded yet.
     self.uploadContext.buffer(initialItems.filter { $0.cloudKitSystemFields == nil })
@@ -211,7 +212,8 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
       // Subscribe to CloudKit changes, but bail early if we fail
       guard self.initializeSubscription(with: self.cloudOperationQueue) else {
-        self.logHandler("Unable to initialize subscription to changes, bailing from setup early", .error)
+        self.logHandler(
+          "Unable to initialize subscription to changes, bailing from setup early", .error)
         return
       }
       self.logHandler("Cloud environment preparation done", .debug)

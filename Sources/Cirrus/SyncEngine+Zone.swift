@@ -26,7 +26,8 @@ extension SyncEngine {
 
   private func createCustomZoneIfNeeded() {
     guard !createdCustomZone else {
-      logHandler("Already have custom zone, skipping creation but checking if zone really exists", .debug)
+      logHandler(
+        "Already have custom zone, skipping creation but checking if zone really exists", .debug)
 
       checkCustomZone()
 
@@ -45,7 +46,8 @@ extension SyncEngine {
       guard let self = self else { return }
 
       if let error = error {
-        self.logHandler("Failed to create custom CloudKit zone: \(String(describing: error))", .error)
+        self.logHandler(
+          "Failed to create custom CloudKit zone: \(String(describing: error))", .error)
 
         error.retryCloudKitOperationIfPossible(self.logHandler, queue: self.workQueue) {
           self.createCustomZoneIfNeeded()
@@ -75,7 +77,9 @@ extension SyncEngine {
         if !error.retryCloudKitOperationIfPossible(
           self.logHandler, queue: self.workQueue, with: { self.checkCustomZone() })
         {
-          self.logHandler( "Irrecoverable error when fetching custom zone, assuming it doesn't exist: \(String(describing: error))", .error)
+          self.logHandler(
+            "Irrecoverable error when fetching custom zone, assuming it doesn't exist: \(String(describing: error))",
+            .error)
 
           self.workQueue.async {
             self.createdCustomZone = false

@@ -12,7 +12,8 @@ extension SyncEngine {
     guard !context.recordIDsToDelete.isEmpty || !context.recordsToSave.isEmpty else { return }
 
     self.logHandler(
-      "Using \(context.name) context, found %d local items(s) for upload and \(context.recordsToSave.count) for deletion.", .debug
+      "Using \(context.name) context, found %d local items(s) for upload and \(context.recordsToSave.count) for deletion.",
+      .debug
     )
 
     modifyRecords(with: context)
@@ -33,7 +34,9 @@ extension SyncEngine {
   ) {
     guard !recordIDsToDelete.isEmpty || !recordsToSave.isEmpty else { return }
 
-    logHandler("Sending \(recordsToSave.count) record(s) for upload and \(recordIDsToDelete.count) record(s) for deletion.", .debug)
+    logHandler(
+      "Sending \(recordsToSave.count) record(s) for upload and \(recordIDsToDelete.count) record(s) for deletion.",
+      .debug)
 
     let operation = CKModifyRecordsOperation(
       recordsToSave: recordsToSave, recordIDsToDelete: recordIDsToDelete)
@@ -53,7 +56,9 @@ extension SyncEngine {
           )
         }
       } else {
-        self.logHandler("Successfully \(context.name) record(s). Saved \(recordsToSave.count) and deleted \(recordIDsToDelete.count)", .info)
+        self.logHandler(
+          "Successfully \(context.name) record(s). Saved \(recordsToSave.count) and deleted \(recordIDsToDelete.count)",
+          .info)
 
         self.workQueue.async {
           self.modelsChangedSubject.send(

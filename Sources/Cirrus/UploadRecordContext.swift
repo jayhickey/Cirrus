@@ -12,7 +12,10 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
 
   private lazy var uploadBufferKey = "UPLOADBUFFER-\(zoneID.zoneName))"
 
-  init(defaults: UserDefaults, zoneID: CKRecordZone.ID, logHandler: @escaping (String, OSLogType) -> Void) {
+  init(
+    defaults: UserDefaults, zoneID: CKRecordZone.ID,
+    logHandler: @escaping (String, OSLogType) -> Void
+  ) {
     self.defaults = defaults
     self.zoneID = zoneID
     self.logHandler = logHandler
@@ -57,7 +60,7 @@ final class UploadRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
           withRootObject: newValue, requiringSecureCoding: true)
         defaults.set(data, forKey: uploadBufferKey)
       } catch {
-          logHandler("Failed to encode record ids for upload: \(String(describing: error))", .error)
+        logHandler("Failed to encode record ids for upload: \(String(describing: error))", .error)
       }
     }
   }

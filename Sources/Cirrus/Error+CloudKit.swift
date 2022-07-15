@@ -19,33 +19,40 @@ extension Error {
   /// This closure is responsible for handling the conflict and returning the conflict-free record.
   /// - Returns: The conflict-free record returned by `resolver`
   func resolveConflict<Persistable: CloudKitCodable>(
-    _ logger: ((String, OSLogType) -> Void)? = nil, with resolver: (Persistable, Persistable) -> Persistable?
+    _ logger: ((String, OSLogType) -> Void)? = nil,
+    with resolver: (Persistable, Persistable) -> Persistable?
   ) -> CKRecord? {
     guard let effectiveError = self as? CKError else {
-      logger?("resolveConflict called on an error that was not a CKError. The error was \(String(describing: self))", .fault)
+      logger?(
+        "resolveConflict called on an error that was not a CKError. The error was \(String(describing: self))",
+        .fault)
       return nil
     }
 
     guard effectiveError.code == .serverRecordChanged else {
       logger?(
-        "resolveConflict called on a CKError that was not a serverRecordChanged error. The error was \(String(describing: effectiveError))", .fault)
+        "resolveConflict called on a CKError that was not a serverRecordChanged error. The error was \(String(describing: effectiveError))",
+        .fault)
       return nil
     }
 
     guard let clientRecord = effectiveError.clientRecord else {
       logger?(
-        "Failed to obtain client record from serverRecordChanged error. The error was \(String(describing: effectiveError))", .fault)
+        "Failed to obtain client record from serverRecordChanged error. The error was \(String(describing: effectiveError))",
+        .fault)
       return nil
     }
 
     guard let serverRecord = effectiveError.serverRecord else {
       logger?(
-        "Failed to obtain server record from serverRecordChanged error. The error was \(String(describing: effectiveError))", .fault)
+        "Failed to obtain server record from serverRecordChanged error. The error was \(String(describing: effectiveError))",
+        .fault)
       return nil
     }
 
     logger?(
-      "CloudKit conflict with record of type \(serverRecord.recordType). Running conflict resolver", .error)
+      "CloudKit conflict with record of type \(serverRecord.recordType). Running conflict resolver",
+      .error)
 
     // Always return the server record so we don't end up in a conflict loop (the server record has the change tag we want to use)
     // https://developer.apple.com/documentation/cloudkit/ckerror/2325208-serverrecordchanged
@@ -69,7 +76,8 @@ extension Error {
   ///   - block: The block that will execute the operation later if it can be retried
   /// - Returns: Whether or not it was possible to retry the operation
   @discardableResult func retryCloudKitOperationIfPossible(
-    _ logger: ((String, OSLogType) -> Void)? = nil, queue: DispatchQueue, with block: @escaping () -> Void
+    _ logger: ((String, OSLogType) -> Void)? = nil, queue: DispatchQueue,
+    with block: @escaping () -> Void
   ) -> Bool {
     guard let effectiveError = self as? CKError else { return false }
 
