@@ -104,7 +104,7 @@ extension SyncEngine {
       } else {
         self.logHandler(
           "Private subscription found, the device is subscribed to CloudKit change notifications.",
-          .error
+          .info
         )
       }
     }
