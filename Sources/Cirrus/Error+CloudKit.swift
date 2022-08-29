@@ -80,8 +80,13 @@ extension Error {
     with block: @escaping () -> Void
   ) -> Bool {
     guard let effectiveError = self as? CKError else { return false }
-
-    guard let retryDelay: Double = effectiveError.retryAfterSeconds else {
+    
+    let retryDelay: Double
+    if let suggestedRetryDelay = effectiveError.retryAfterSeconds {
+      retryDelay = suggestedRetryDelay
+    } else if effectiveError.code == CKError.Code.limitExceeded {
+      retryDelay = 0
+    } else {
       logger?("Error is not recoverable", .error)
       return false
     }
