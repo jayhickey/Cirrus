@@ -51,7 +51,7 @@ final class DeleteRecordContext<Persistable: CloudKitCodable>: RecordModifyingCo
     }
     set {
       do {
-        logHandler("Updating \(newValue.count) buffer with %d items", .info)
+        logHandler("Updating \(self.name) buffer with \(newValue.count) items", .info)
         let data = try NSKeyedArchiver.archivedData(
           withRootObject: newValue, requiringSecureCoding: true)
         defaults.set(data, forKey: deleteBufferKey)

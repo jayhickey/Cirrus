@@ -12,7 +12,7 @@ extension SyncEngine {
     guard !context.recordIDsToDelete.isEmpty || !context.recordsToSave.isEmpty else { return }
 
     self.logHandler(
-      "Using \(context.name) context, found %d local items(s) for upload and \(context.recordsToSave.count) for deletion.",
+      "Using \(context.name) context, found \(context.recordsToSave.count) local items(s) for upload and \(context.recordIDsToDelete.count) for deletion.",
       .debug
     )
 
