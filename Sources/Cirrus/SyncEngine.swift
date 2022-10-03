@@ -98,7 +98,7 @@ public final class SyncEngine<Model: CloudKitCodable> {
 
     self.logHandler =
       logHandler ?? { string, level in
-        if #available(iOS 14.0, macOS 11.0, *) {
+        if #available(iOS 14.0, macOS 11.0, watchOS 7.0, tvOS 14.0, *) {
           let logger = Logger.init(
             subsystem: "com.jayhickey.Cirrus.\(zoneIdent)",
             category: String(describing: SyncEngine.self)
