@@ -80,7 +80,7 @@ extension Error {
     with block: @escaping () -> Void
   ) -> Bool {
     guard let effectiveError = self as? CKError else { return false }
-    
+
     let retryDelay: Double
     if let suggestedRetryDelay = effectiveError.retryAfterSeconds {
       retryDelay = suggestedRetryDelay
