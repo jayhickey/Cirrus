@@ -16,6 +16,22 @@ final class CKRecordKeyedEncodingContainer<Key: CodingKey> {
 }
 
 extension CKRecordKeyedEncodingContainer: KeyedEncodingContainerProtocol {
+  func encodeIfPresent<T>(_ value: T?, forKey key: Key) throws where T : Encodable {
+    if let value {
+      try encode(value, forKey: key)
+    } else {
+      try encodeNil(forKey: key)
+    }
+  }
+  
+  func encodeIfPresent(_ value: String?, forKey key: Key) throws {
+    if let value {
+      try encode(value, forKey: key)
+    } else {
+      try encodeNil(forKey: key)
+    }
+  }
+  
   func encodeNil(forKey key: Key) throws {
     storage.encode(codingPath: codingPath + [key], value: nil)
   }

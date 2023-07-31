@@ -39,7 +39,7 @@ public final class CKRecordEncoder {
     return record
   }
 
-  private func validateSize(for recordKeyValues: [String: CKRecordValue]) throws {
+  private func validateSize(for recordKeyValues: [String: CKRecordValue?]) throws {
     guard
       let recordData = try? NSKeyedArchiver.archivedData(
         withRootObject: recordKeyValues,
@@ -90,7 +90,7 @@ final class _CKRecordEncoder {
 extension _CKRecordEncoder {
   final class Storage {
     private(set) var record: CKRecord?
-    private(set) var keys: [String: CKRecordValue] = [:]
+    private(set) var keys: [String: CKRecordValue?] = [:]
 
     func set(record: CKRecord?) {
       self.record = record
